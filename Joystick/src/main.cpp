@@ -3,7 +3,7 @@
 #include "rgb_library.h"
 
 Joystick joystick;
-RGBLed rgb(15, 15); // cấu hình giả định, bạn có thể thay bằng RGBLed(25,26,27) nếu dùng rời
+RGBLed rgb(15, 15);
 
 unsigned long pressedTime = 0;
 
