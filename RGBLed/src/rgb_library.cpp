@@ -66,13 +66,13 @@ void RGBLed::rainbowCycle(uint8_t cycles, uint16_t wait_ms) {
 
 void RGBLed::showAllColor(uint16_t wait_ms){
   for (int color = COLOR_RED; color <= COLOR_GOLD; color++) {
-    showColor(static_cast<RGBColor>(color), wait_ms);  // 500ms mỗi màu
+    showColor(static_cast<RGBColor>(color), wait_ms);  // 
   }
 }
 
 void RGBLed::setPixelColor(uint16_t index, RGBColor color, BLEVEL bsness){
   if (index < strip.numPixels()) {
-    strip.setBrightness(static_cast<uint8_t>(bsness));  // chuyển enum → int
+    strip.setBrightness(static_cast<uint8_t>(bsness)); 
     strip.setPixelColor(index, getColorFromType(color));
     strip.show();
   }
