@@ -39,7 +39,7 @@ class RGBLed {
     RGBLed(uint8_t pin, uint16_t count);
     void begin(uint8_t brightness = 50);
     void setBrightness(uint8_t level);
-    void showColor( RGBColor color, uint32_t duration_ms = 1500);
+    void showColor( RGBColor color);
     void turnOff();
     void rainbowCycle(uint8_t cycles = 5, uint16_t wait_ms = 10);
     void showAllColor(uint16_t wait_ms = 500);

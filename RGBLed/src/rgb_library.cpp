@@ -38,13 +38,12 @@ uint32_t RGBLed::getColorFromType(RGBColor color) {
     default:             return 0;
   }
 }
-void RGBLed::showColor(RGBColor color_type, uint32_t duration_ms) {
+void RGBLed::showColor(RGBColor color_type) {
   uint32_t color = getColorFromType(color_type);
   for (int i = 0; i < strip.numPixels(); i++) {
     strip.setPixelColor(i, color);
   }
   strip.show();
-  delay(duration_ms);
 }
 
 void RGBLed::turnOff(){
@@ -66,13 +65,14 @@ void RGBLed::rainbowCycle(uint8_t cycles, uint16_t wait_ms) {
 
 void RGBLed::showAllColor(uint16_t wait_ms){
   for (int color = COLOR_RED; color <= COLOR_GOLD; color++) {
-    showColor(static_cast<RGBColor>(color), wait_ms);  // 
+    showColor(static_cast<RGBColor>(color));
+    delay(wait_ms);  // 500ms mỗi màu
   }
 }
 
 void RGBLed::setPixelColor(uint16_t index, RGBColor color, BLEVEL bsness){
   if (index < strip.numPixels()) {
-    strip.setBrightness(static_cast<uint8_t>(bsness)); 
+    strip.setBrightness(static_cast<uint8_t>(bsness));  // chuyển enum → int
     strip.setPixelColor(index, getColorFromType(color));
     strip.show();
   }
@@ -80,8 +80,10 @@ void RGBLed::setPixelColor(uint16_t index, RGBColor color, BLEVEL bsness){
 
 void RGBLed::blink(RGBColor color, uint8_t times, uint16_t on_time, uint16_t off_time) {
   for (uint8_t i = 0; i < times; i++) {
-    showColor(color, on_time);
-    showColor(COLOR_BLACK, off_time);
+    showColor(color);
+    delay(on_time);
+    showColor(COLOR_BLACK);
+    delay(off_time);
   }
 }
 void RGBLed::fadeInOut(RGBColor color, uint8_t steps, uint16_t delay_ms) {
@@ -92,11 +94,13 @@ void RGBLed::fadeInOut(RGBColor color, uint8_t steps, uint16_t delay_ms) {
 
   for (int bLevel = 0; bLevel <= 255; bLevel += 255 / steps) {
     strip.setBrightness(bLevel);
-    showColor(color, delay_ms);
+    showColor(color);
+    delay(delay_ms);
   }
   for (int bLevel = 255; bLevel >= 0; bLevel -= 255 / steps) {
     strip.setBrightness(bLevel);
-    showColor(color, delay_ms);
+    showColor(color);
+    delay(delay_ms);
   }
   strip.setBrightness(50); // reset to default brightness
 }
